@@ -21,16 +21,20 @@ package com.brudan.popi;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
+import com.parse.*;
 
 public class popi extends DroidGap
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html")
+        Parse.initialize(this, "2ewFp8fRfANLxuFB4ZhudaBv4STaRh30mespF0wx", "G5md2MvmROPeUQMvXURUe4UOuXUwtfMpv6h9xpgl");
+        PushService.subscribe(this, "", popi.class);
+        PushService.subscribe(this, "foo", popi.class);
     }
 }
 
