@@ -1,0 +1,82 @@
+.classHeader{
+    height:5% !important;
+    position:fixed;
+    z-index:10;
+    top:0;
+    width:100%
+}
+
+.classFooter{
+    height:15% !important;
+    position:fixed;
+    z-index:10;
+    bottom:0;
+    width:100%
+}
+
+.ajaxLoader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -24px;
+    margin-left: -24px;
+    z-index: 100;
+    display: none;
+}
+.ui-tabs .ui-tabs-hide {
+    position: absolute;
+    left: -10000px;
+}
+#msgContainer {
+	width:100%;
+	height:30px;
+	line-height:30px;
+	background:#FFFFCC;
+	position:absolute;
+	z-index:100;
+	left:0;
+	top:0;
+	display:none;
+	font-size:1.2em;
+	border-bottom:#FFCC66 1px solid;
+}
+#msg {
+	padding-left:10px;
+	text-align:center;
+}
+.shadow {
+	background:	url('/images/shadow.png') repeat-x bottom;
+	height:10px
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(255,255,25, .8) url(../images/loader.gif) no-repeat 50%;
+}
+
+#map_canvas{
+    padding: 0;
+    background: #CCC;
+    height: 100%;
+    overflow:hidden;
+    display:block;
+}
+
+#control_panel {
+    padding: 0px;
+    border-width:1px; 
+    background: #FFF;  
+}
+
+#directions_panel{
+    width: 100%;
+    padding: 5px;
+    height: 40px;
+    font-size: 15px;
+}
+
+
