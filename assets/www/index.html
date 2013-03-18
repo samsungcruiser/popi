@@ -110,235 +110,121 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             $ ("# button"). click (function () {
-    $. mobile.loadingMessageTextVisible = true;
-                 $. mobile.loadingMessage = "Text";
-                 $. mobile.showPageLoadingMsg ();
-
-});
-//$.mobile.loadPage( "#map.html", { showLoadMsg: false } );
-//window.onload = whereami();    
-var geocoder, start, end;
-var directionDisplay;
-var directionsService = new google.maps.DirectionsService();
-geocoder = new google.maps.Geocoder();
-var map;   
-var input = document.getElementById('end');
-var autocomplete = new google.maps.places.Autocomplete(input);
-function detectBrowser() {
-var useragent = navigator.userAgent;
-var mapdiv = document.getElementById("map_canvas");
-if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-    mapdiv.style.width = '100%';
-    mapdiv.style.height = '100%';
-  } else {
-    mapdiv.style.width = '600px';
-    mapdiv.style.height = '800px';
-  }
-} 
-var maploaded = false
-    var maploadTimer = 0
-  
-var initialLocation;
-var kisaasi = new google.maps.LatLng(0.3750, 32.6000);
-function initialize() {
-  // checkGoogleMap()              
-    directionsDisplay = new google.maps.DirectionsRenderer();        
-   var here = whereami();
-    var mapOptions = {
-        zoom:15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        //center: here
-        center: initialLocation
-        }
-    var $content = $("#map div:jqmData(role=content)");
-        $content.height (screen.height);
-     map = new google.maps.Map ($content[0], mapOptions);
-       // map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-      // create and add a 'map loading' animation - locate it at the map center
-//var m=map.getSize(), x=(m.width/2)-16, y=(m.height/2)-16;
-//map.loadingMessage=new HtmlControl('<img src="http://forum.joomla.it/21-0.gif" width="32" height="32" alt="Map loading..." border="0" />');
-//map.addControl(map.loadingMessage, new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(100, 100)));
-
-    directionsDisplay.setMap(map);
-    //add the 'loaded' listener
-    //GEvent.addListener(map, 'tilesloaded', function(){
-    /// maploaded = true
-//  });
-    //add the 'map type changed' listener
-    //GEvent.addListener(map, 'maptypechanged', function(){
-    //  resetCheckGoogleMap()
-    //});
-    
-    //add the 'zoom level changed' listener
-    //GEvent.addListener(map, 'zoomend', function(){
-        //resetCheckGoogleMap()
-    //});
-
-   
-
-}    
-
-
-//function loadScript() {
- // var script = document.createElement("script");
- // script.type = "text/javascript";
- // script.src = "http://maps.googleapis.com/maps/api/js?key=036UztUNAgaDCrS7U_jlB20Sl7V6nNar2eu4dTA&sensor=true&callback=initialize";
- // document.body.appendChild(script);
-//}
-
-//window.onload = loadScript;
-
-   var iamhere = document.getElementById('start');                   
-    var input = document.getElementById('end');
-    var options = {
- // bounds: defaultBounds,
-  
-  componentRestrictions: {country: 'ug'}
-};
-
-autocomplete = new google.maps.places.Autocomplete(input, options);
-                    
-    // Safari supports the W3C Geolocation method
-
-  
-  function whereami(){
-      if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      geocoder.geocode({'latLng': initialLocation}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-           // alert(JSON.stringify(results));
+                $. mobile.loadingMessageTextVisible = true;
+                $. mobile.loadingMessage = "Text";
+                $. mobile.showPageLoadingMsg ();
+            });   
+            var geocoder, start, end;
+            var directionDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            geocoder = new google.maps.Geocoder();
+            var map;   
+            var input = document.getElementById('end');
+            var autocomplete = new google.maps.places.Autocomplete(input);
             
-            var marker = new google.maps.Marker({
-      position: initialLocation,
-      map: map,
-      content:"Your Here"
-  });
+            function detectBrowser() {
+                var useragent = navigator.userAgent;
+                var mapdiv = document.getElementById("map_canvas");
+                if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+                    mapdiv.style.width = '100%';
+                    mapdiv.style.height = '100%';
+                } else {
+                    mapdiv.style.width = '600px';
+                    mapdiv.style.height = '800px';
+                }
+            }; 
+            
+            var maploaded = false;
+            var maploadTimer = 0;         
+            var initialLocation;
+            var kisaasi = new google.maps.LatLng(0.3750, 32.6000);
+            
+            function initialize() {            
+                directionsDisplay = new google.maps.DirectionsRenderer();        
+                var here = whereami();
+                var mapOptions = {
+                    zoom:15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    //center: here
+                    center: initialLocation
+                };
+                var $content = $("#map div:jqmData(role=content)");
+                $content.height (screen.height - 170);
+                map = new google.maps.Map ($content[0], mapOptions);
+                directionsDisplay.setMap(map);
+            };   
 
-            map.setCenter(initialLocation);
-            if (results[0]) {
+            var iamhere = document.getElementById('start');
+            var options = {
+             // bounds: defaultBounds,          
+              componentRestrictions: {country: 'ug'}
+            };
 
-                var iamhere = document.getElementById('start');
-                iamhere.value=results[0].formatted_address;
-            } else {
-              alert('No results found');
-            }
-          } else {
-            alert('Cannot Find your Location ' + status);
-          }
-        });
+            autocomplete = new google.maps.places.Autocomplete(input, options);
 
-    }, function() {
-      handleNoGeolocation(browserSupportFlag);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation();
-  }   
-  return initialLocation;
-}
+            function whereami(){
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                        geocoder.geocode({'latLng': initialLocation}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {                    
+                                var marker = new google.maps.Marker({
+                                    position: initialLocation,
+                                    map: map,
+                                    content:"Your Here"
+                                });
+                                map.setCenter(initialLocation);
+                                if (results[0]) {
+                                    iamhere.value=results[0].formatted_address;
+                                } else {
+                                    alert('No results found');
+                                }
+                            } else {
+                                alert('Cannot Find your Location ' + status);
+                            }
+                        });
+                    }, function() {
+                        handleNoGeolocation(browserSupportFlag);
+                    });
+                } else {
+                // Browser doesn't support Geolocation
+                    handleNoGeolocation();
+                }   
+                return initialLocation;
+            };
 
-  function handleNoGeolocation() {
-    initialLocation = kisaasi;
-    map.setCenter(initialLocation);
-  }
-    
-//function resize (){
-  //      var $content = $("#map div:jqmData(role=content)");
-    //    $content.height (screen.height - 171);
-//}    
-function calcRoute() {
-    //$.mobile.showPageLoadingMsg(); 
-    var start = document.getElementById('start').value;
-    var end = document.getElementById('end').value;
-    var pricePerMile = 700;    
-    var request = {
-            origin: start,
-            destination: end,   
-            travelMode: google.maps.DirectionsTravelMode.WALKING
-        };
-        directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-            var route = response.routes[0];
-            var summaryPanel = document.getElementById('directions_panel');
-            summaryPanel.innerHTML = '';
-            // For each route, display summary information.
-        
-   // var map = new google.maps.Map ($content[0], mapOptions);
-            for (var i = 0; i < route.legs.length; i++) {  
-              //$.mobile.showPageLoadingMsg(); 
-              summaryPanel.innerHTML += 'The Boda Boda from ';
-              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-              summaryPanel.innerHTML += 'is going to cost approx; '
-              summaryPanel.innerHTML += parseInt(route.legs[i].distance.text)*pricePerMile + 'shs.';  
-              //$.mobile.hidePageLoadingMsg(); 
-                                                        }
-                                                    }
-   else {
-    alert('Cannot find Place');
-   }
-                                                    
-        });
-
-      }   
-      
- function size() {
-    // var $content = $("#map div:jqmData(role=content)");
-      //  $content.height (screen.height - 171);
-         document.getElementById('map_canvas').style.width = "80%";
-        //alert ('bukoto');
-        document.getElementById('map_canvas').style.width = "100%";
-        //$("#map").map().getMap().checkResize();
-         google.maps.event.trigger(map, 'resize');
-   // alert ('bukoto');
-   // var map = new google.maps.Map ($content[0], mapOptions);
-    
-}
-
-function checkGoogleMap() {
-        //increment the timer every second
-        maploadTimer = maploadTimer + 1
-        
-        //specify the target element for our messages
-        var msg = document.getElementById('msg')
-        
-        if (maploaded == false) {
-            //if we dont have a fully loaded map - show the message
-            $("#msgContainer").slideDown("fast")
-            //for the first 5 tries, show this message
-            if (maploadTimer < 5) {
-            msg.innerHTML += 'Loading map images from Google Maps...';
-            }
-            //loop it
-            setTimeout('checkGoogleMap()',30);
-        } else {
-            //otherwise, show 'loaded' message then hide the message after a second
-            msg.innerHTML += 'Map loaded.'
-            maploadTimer = 0;
-            setTimeout('hideMsg()',30);
-        } 
-        //if the timer get up to 20, show a different message
-        //if (maploadTimer >= 100 && maploadTimer <400 ) {
-        //  msg.innerHTML += 'Sorry about the wait - your connection to Google Maps is a little slow.';
-    //  }
-        //if it gets to 40 show another different message with a reload link (for what its worth!)
-    //  if (maploadTimer >= 400) {
-    //      msg.innerHTML += 'Hmmm, still waiting! You can wait a bit longer or you could try <a href="javascript:load()">reloading the map</a>.';
-      //      $("#msgContainer").slideUp("fast")
-    //  }
-    }
-    
-function hideMsg() {    
-        $("#msgContainer").slideUp("fast")
-    }
-    
-function resetCheckGoogleMap() {
-        maploaded = false
-        maploadTimer = 0;
-        checkGoogleMap();
-    }
+            function handleNoGeolocation() {
+                initialLocation = kisaasi;
+                map.setCenter(initialLocation);
+            };
+            
+            function calcRoute() { 
+                var start = input.value;
+                var end = iamhere.value;
+                var pricePerMile = 700;    
+                var request = {
+                        origin: start,
+                        destination: end,   
+                        travelMode: google.maps.DirectionsTravelMode.WALKING
+                    };
+                directionsService.route(request, function(response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                        var route = response.routes[0];
+                        var summaryPanel = document.getElementById('directions_panel');
+                        summaryPanel.innerHTML = '';
+                        for (var i = 0; i < route.legs.length; i++) {   
+                            summaryPanel.innerHTML += 'The Boda Boda from ';
+                            summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                            summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                            summaryPanel.innerHTML += 'is going to cost approx; '
+                            summaryPanel.innerHTML += parseInt(route.legs[i].distance.text)*pricePerMile + 'shs.';   
+                        }
+                    } else {
+                        alert('Cannot find Place');
+                    }                                                            
+                });
+            };   
         </script>
     </body>
 </html>
