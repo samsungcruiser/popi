@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+    Licensed to the Brudan Digital (www.brudan.net) under one
+    or more contributor license agreements.  
 -->
 <html>
     <head>
@@ -37,6 +23,7 @@
         <div data-role ="header">
         <h1> Popi Dodger </h1>
         </div>
+        <div id="updateMap"></div>
         <div id="msgContainer">
   <div id="msg"></div>
   <div class="shadow"></div>
@@ -76,7 +63,7 @@
         <label for="un" class="ui-hidden-accessible"> </label>
         <input type="text" name="destination" id="end" value="" placeholder="Destination"/>
         
-        <a href="index2.html#map" data-role="button" data-theme="a" onClick="calcRoute();" data-prefetch rel="external" id="#twitterBtn">Estimate</a>
+        <a href="index.html#map" data-role="button" data-theme="a" onClick="calcRoute();" data-prefetch rel="external" id="#twitterBtn">Estimate</a>
         <p> Disclaimer : The amount given is just an estimate,the actual cost may vary.</p>
         </div>
 
@@ -104,6 +91,7 @@
                 $. mobile.loadingMessage = "Text";
                 $. mobile.showPageLoadingMsg ();
             });   
+            var marker;
             var geocoder, start, end;
             var directionDisplay;
             var directionsService = new google.maps.DirectionsService();
@@ -188,7 +176,34 @@
                 initialLocation = kisaasi;
                 map.setCenter(initialLocation);
             };
+
+
             
+
+            /*  function placemarker()){    */
+
+              $("#placemarker").click(function(){   
+
+            var lat = parseFloat(document.getElementById('markerLat').value);
+            /*markerLat generates the latitude, which can be entered into the db */
+            var lng = parseFloat(document.getElementById('markerLng').value);
+            /*markerLng generates the latitude, which can be entered into the db */
+
+            var newLatLng = new google.maps.LatLng(lat, lng);
+
+
+                if (marker != undefined)
+                marker.setPosition(newLatLng);
+                    else
+                marker = new google.maps.Marker({
+                    position: newLatLng,
+                    map: map,
+                    draggable: true
+                });
+            });
+              
+
+            /*
             function calcRoute() { 
                 var start = input.value;
                 var end = iamhere.value;
@@ -215,7 +230,8 @@
                         alert('Cannot find Place');
                     }                                                            
                 });
-            };   
+            };  
+            */ 
         </script>
     </body>
 </html>
