@@ -127,7 +127,7 @@
                     center: initialLocation
                 };
                 var $content = $("#map div:jqmData(role=content)");
-                $content.height (screen.height - 170);
+                $content.height (screen.height-170);
                 map = new google.maps.Map ($content[0], mapOptions);
                 directionsDisplay.setMap(map);
             };   
